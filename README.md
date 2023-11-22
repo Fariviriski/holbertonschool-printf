@@ -6,6 +6,6 @@ This is the first group project that we have at Holberton School, which consist 
 
 This function is part of the standart library **<stdio>** and to use it we must specify the header file **<stdio.h>**.
 
-Writes the C string pointed by format to the standart output (stdout). If format include format specifiers (subsequences beginning with *%*), the addtional argument following are formatted and inserted in the resulting string replacing their respective specifiers.
+Writes the C string pointed by format to the standart output (stdout). If format include format specifiers (subsequences beginning with **%**), the addtional argument following are formatted and inserted in the resulting string replacing their respective specifiers.
 ### Parameters
 > **format** -> C string that contains the text to be written to stdout.
