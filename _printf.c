@@ -1,66 +1,50 @@
 #include "main.h"
-
-
 /**
- * run_printf - Reads through the format string for _printf.
- * @format: Character string to print - may contain directives.
- * @output: A buffer_t struct containing a buffer.
- * @args: A va_list of arguments.
- * Return: The number of characters stored to output.
+ * _printf - function that produces output according to a format
+ * @format: string
+ * Return: value
  */
 
-int run_printf(const char *format, va_list args, buffer_t *output)
+int _printf(const char *format, ...)
 {
-	int i, ret = 0;
-	char wid, prec, tmp;
-	unsigned char flag, len;
-	unsigned int (*f)(va_list, buffer_t *,\
-			unsigned char, char, char, unsigned char);
+        va_list ls;
+        int counter = 0;
 
-	for (i = 0; *(format + i); i++)
-	{
-		len = 0;
-		if (*(format + i) == '%')
-		{
+        va_start(ls, format);
 
-			f = handle_specifiers(format + i + tmp + 1);
-			if (f != NULL)
-			{
-				i += tmp + 1;
-				ret += f(args, output, flag, wid, prec, len);
-				continue;
-			}
-			else if (*(format + i + tmp + 1) == '\0')
-			{
-				ret = -1;
-				break;
-			}
-		}
+        if (ls == NULL || format == NULL)
+                return (-1);
 
-	return (ret);
-}
+        for (; *format != '\0'; format++)
+        {
+                if (*format == '%')
+                {
+                        format++;
 
-/**
- * _printf - outputs formatted string
- * @format: characters to print, may contain directives
- * @Return: number of characters print
- */
-
-int _printf (const char, *format, ...)
-{
-	buffer_t *out;
-	va_list args;
-	int ret;
-
-	if (format == NULL)
-		return (-1);
-	out = init_buffer();
-	if (out == NULL)
-		return (-1);
-
-	va_start(args, format);
-
-	ret = run_printf(format, args, output);
-
-	return (ret);
+                        switch (*format)
+                        {
+                                case 'c':
+                                                print_char(ls, &counter);
+                                                break;
+                                case 's':
+                                                print_string(ls, &counter);
+                                                break;
+                                case '%':
+                                                print_percent(&counter);
+                                                break;
+                                case 'd': case 'i':
+                                                        print_int(ls, &counter);
+                                                        break;
+                                default:
+                                                _putchar('%');
+                        }
+                }
+                else
+                {
+                        _putchar(*format);
+                        counter++;
+                }
+        }
+        va_end(ls);
+        return (counter);
 }
