@@ -8,42 +8,43 @@
 int _printf(const char *format, ...)
 {
 	va_list ls;
-	int count = 0, j, i;
-	_printf_functions types[] = {{"c", _printf_char},
-		{"s", _print_string}, {"i", _printf_char},
-		{"d", _print_int}, {"%", _print_mod},
-		{NULL, NULL}};
-	if (format == NULL)
-	{
-		return (-1);
-	}
+	int counter = 0;
+
 	va_start(ls, format);
-	for (i = 0; format[i]; i++)
+
+	if (ls == NULL || format == NULL)
+		return (-1);
+
+	for (*format != '\0'; format++;)
 	{
-		if (format[i] == '%')
+		if (*format == '%')
 		{
-			while (format[++i] == ' ')
-			;
-			for (j = 0; types[j].convertion_specifier != NULL; j++)
+			format++;
+
+			switch (*format)
 			{
-				if (format[i] == *types[j].convertion_specifier)
-				{
-					count += types[j].function(ls);
+				case 'c':
+					print_char(ls, &counter);
 					break;
-				}
-			}
-			if (types[j].convertion_specifier == NULL)
-			{
-				write(1, &format[i], 1);
-				count++;
+				case 's':
+					print_string(ls, &counter);
+					break;
+				case '%':
+					print_percent(&counter);
+					break;
+				case 'd': case 'i':
+					print_int(ls, &counter);
+					break;
+				default:
+					_putchar('%');
 			}
 		}
 		else
 		{
-			write(1, &format[i], 1);
-			count++;
+			_putchar(*format);
+			counter++;
 		}
 	}
 	va_end(ls);
-	return (count);
+	return (counter);
 }
