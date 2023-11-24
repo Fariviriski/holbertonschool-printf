@@ -59,3 +59,4 @@ int print_percent(int *counter)
 	(*counter)++;
 	return (1);
 }
+

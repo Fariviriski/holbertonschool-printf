@@ -10,17 +10,6 @@
 /* prototypes */
 int _printf(const char *format, ...);
 
-/**
- * struct _printf_function - interface for printing
- * @convertion_specifier: char that identifies the type of arg
- * @function: func to run if id matches
- */
-typedef struct _printf_function
-{
-char *convertion_specifier;
-int (*function)(va_list a);
-} _printf_functions;
-
 int print_char(va_list ls, int *counter);
 
 int print_string(va_list ls, int *counter);
