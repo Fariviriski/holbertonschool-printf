@@ -15,7 +15,7 @@ int _printf(const char *format, ...)
 	if (ls == NULL || format == NULL)
 		return (-1);
 
-	for (*format != '\0'; format++;)
+	for (; *format != '\0'; format++)
 	{
 		if (*format == '%')
 		{
