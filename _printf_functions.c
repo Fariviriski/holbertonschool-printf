@@ -7,7 +7,7 @@
  *
  * Return: the number of printed chars, int
  */
-int _printf_char(va_list a)
+int _print_char(va_list a)
 {
 	/* Get the character from the arguments list */
 	char c = va_arg(a, int);
@@ -99,4 +99,18 @@ int _print_int(va_list a)
 	count = digit_MAX - i;
 	write(1, &intStr[i], count);
 	return (count);
+}
+
+/**
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar(char c)
+{
+
+	return (write(1, &c, 1));
+
 }
