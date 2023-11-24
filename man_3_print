@@ -1,5 +1,5 @@
 .\" Manpage for custom _printf.
-.TH man 1 "31 Mar 2023" "1.0" "_printf man page"
+.TH man 1 "24 November 2023" "1.0" "_printf man page"
 .SH NAME
 _printf -\ formatted output conversion
 .SH SYNOPSIS
