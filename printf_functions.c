@@ -11,12 +11,12 @@ int _putchar(char c)
 	return (write(1, &c, 1));
 }
 /**
- * printc - Entry function. Print character
+ * print_char - Entry function. Print character
  * @list: variable va_list
  *
  * Return: 1 (nbyte)
  */
-int printc(va_list list)
+int print_char(va_list list)
 {
 	_putchar(va_arg(list, int));
 	return (1);
@@ -49,12 +49,12 @@ int print_string(va_list s)
 	return (k);
 }
 /**
- * print_n - Entry point. Print number
+ * print_int - Entry point. Print number
  * @n: Variable va_list
  *
  * Return: count (nbytes)
  */
-int print_n(va_list n)
+int print_int(va_list n)
 {
 
 	long int number;

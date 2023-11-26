@@ -57,10 +57,10 @@ int _printf(const char *format, ...)
 int (*cmp_func(const char a))(va_list)
 {
 	print_f printf[] = {
-		{'c', printc},
+		{'c', print_char},
 		{'s', print_string},
-		{'d', print_n},
-		{'i', print_n},
+		{'d', print_int},
+		{'i', print_int},
 		{'\0', NULL}
 	};
 
