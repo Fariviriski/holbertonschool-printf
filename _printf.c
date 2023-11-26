@@ -1,50 +1,78 @@
 #include "main.h"
 /**
- * _printf - function that produces output according to a format
- * @format: string
- * Return: value
+ * _printf - printf function.
+ * @format: variable
+ *
+ * Return: nbytes printed.
  */
-
 int _printf(const char *format, ...)
 {
-	va_list ls;
-	int counter = 0;
+	va_list list;
+	unsigned int i = 0, characters_number = 0;
 
-	va_start(ls, format);
-
-	if (ls == NULL || format == NULL)
+	if (!format)
 		return (-1);
 
-	for (; *format != '\0'; format++)
+	va_start(list, format);
+	for (i = 0; format[i] != '\0'; i++)
 	{
-		if (*format == '%')
+		if (format[i] == '%')
 		{
-			format++;
+			if (format[i + 1] == '\0')
+				return (-1);
 
-			switch (*format)
+			else if (format[i + 1] == '%')
 			{
-				case 'c':
-					print_char(ls, &counter);
-					break;
-				case 's':
-					print_string(ls, &counter);
-					break;
-				case '%':
-					print_percent(&counter);
-					break;
-				case 'd': case 'i':
-					print_int(ls, &counter);
-					break;
-				default:
-					_putchar('%');
+				_putchar('%');
+				characters_number++;
+				i++;
+			}
+			else if (cmp_func(format[i + 1]) != NULL)
+			{
+				characters_number += (cmp_func(format[i + 1]))(list);
+				i++;
+			}
+			else
+			{
+				_putchar(format[i]);
+				characters_number++;
 			}
 		}
 		else
 		{
-			_putchar(*format);
-			counter++;
+			_putchar(format[i]);
+			characters_number++;
 		}
 	}
-	va_end(ls);
-	return (counter);
+	va_end(list);
+	return (characters_number);
+}
+
+/**
+ * cmp_func - Entry point
+ * @a: character.
+ *
+ * Return: 0.
+ */
+int (*cmp_func(const char a))(va_list)
+{
+	print_f printf[] = {
+		{'c', printc},
+		{'s', print_string},
+		{'d', print_n},
+		{'i', print_n},
+		{'\0', NULL}
+	};
+
+	int k;
+
+	for (k = 0; printf[k].p != '\0'; k++)
+	{
+		if (printf[k].p == a)
+		{
+			return (printf[k].func);
+		}
+	}
+
+	return (0);
 }
